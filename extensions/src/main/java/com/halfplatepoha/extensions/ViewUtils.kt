@@ -2,7 +2,9 @@ package com.halfplatepoha.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.util.TypedValue
+import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.IdRes
@@ -23,7 +25,10 @@ inline fun <TV: TextView> TV.format(colorMap: Map<String, Int?>) {
     text = spannedString
 }
 
-inline fun Int.dpToPx(context: Context)
-        = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, toFloat(), context.resources.displayMetrics).toInt()
+inline val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
-inline fun Float.pxToDp(context: Context) = this / context.resources.displayMetrics.density
+inline val Int.px: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+inline fun View?.dismissKeyboard() = this?.let {
+    it.context.getInputMethodManager().hideSoftInputFromWindow(it.windowToken, 0)
+}

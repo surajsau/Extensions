@@ -9,6 +9,7 @@ import android.net.ConnectivityManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
@@ -23,6 +24,8 @@ inline fun Context.getJobScheduler() = getSystemService(Context.JOB_SCHEDULER_SE
 inline fun Context.getWindowManager() = getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
 inline fun Context.getActivityManager() = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
+
+inline fun Context.getInputMethodManager() = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
 inline fun Context.color(@ColorRes colorId: Int) = ContextCompat.getColor(this, colorId)
 
@@ -39,7 +42,7 @@ inline val Context.screenDimension: ScreenDimension
         )
     }
 
-fun Context.getDisplaySize(): Point {
+inline fun Context.getDisplaySize(): Point {
     val display = getWindowManager().defaultDisplay
     val size = Point()
     display.getSize(size)
