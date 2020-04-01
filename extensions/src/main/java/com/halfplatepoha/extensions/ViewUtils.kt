@@ -5,20 +5,27 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.TypedValue
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.IdRes
 
-inline fun <ET: EditText> ET.getTextString(): String? {
+inline fun EditText.getTextString(): String? {
     if(this.text != null)
         return this.text.toString()
     return null
 }
 
-inline val <ET: EditText> ET.isEmpty: Boolean
+inline val EditText.isEmpty: Boolean
     get() = this.getTextString().isNullOrEmpty()
 
 inline fun Activity.textView(@IdRes id: Int): TextView = findViewById(id)
+
+inline fun Activity.editText(@IdRes id: Int): EditText = findViewById(id)
+
+inline fun Activity.button(@IdRes id: Int): Button = findViewById(id)
+
+inline fun Activity.view(@IdRes id: Int): View = findViewById(id)
 
 inline fun <TV: TextView> TV.format(colorMap: Map<String, Int?>) {
     val spannedString = text.toString().format(colorMap)

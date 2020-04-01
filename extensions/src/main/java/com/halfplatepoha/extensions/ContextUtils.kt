@@ -3,6 +3,8 @@ package com.halfplatepoha.extensions
 import android.app.ActivityManager
 import android.app.NotificationManager
 import android.app.job.JobScheduler
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Point
 import android.net.ConnectivityManager
@@ -26,6 +28,8 @@ inline fun Context.getWindowManager() = getSystemService(Context.WINDOW_SERVICE)
 inline fun Context.getActivityManager() = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
 
 inline fun Context.getInputMethodManager() = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+inline fun Context.getClipboardManager() = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
 inline fun Context.color(@ColorRes colorId: Int) = ContextCompat.getColor(this, colorId)
 

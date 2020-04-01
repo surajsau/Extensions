@@ -1,57 +1,31 @@
 package com.halfplatepoha.extensions
 
-import android.annotation.SuppressLint
-import android.text.SpannableStringBuilder
+import android.graphics.Color
 import android.util.Patterns
-import java.lang.Exception
-import java.util.regex.Pattern
+import androidx.annotation.ColorInt
+import java.net.URLDecoder
+import java.net.URLEncoder
 
-/**
- * Formats the string to a SpannableStringBuilder. The syntax rules for formatting a string:
- * [1] <*>..</> to make text bold
- * [2] <color color-name></> for setting color to text
- * [3] <*color color-name></> for setting color and making text bold
- *
- * @param colorMap Map of 'color name' in the String to Color Int resource. Each color name has to mapped
- *          to a Color Int resource else it'll throw an Exception
- *
- * @throws Exception when there are missing mappings in colorMap
- */
-@SuppressLint("NewApi")
-inline fun String.format(colorMap: Map<String, Int?>): SpannableStringBuilder {
-    val spannableString = SpannableStringBuilder(this)
-    val pattern = Pattern.compile(REGEX_TEXT_FORMATTING)
+inline fun String.urlencode() = encodeToUrl()
 
-    val matcher = pattern.matcher(this)
+inline fun String.urldecode() = decodeToUrl()
 
-    while(matcher.find()) {
-        val match = matcher.group(0)
+inline fun String.encodeToUrl(charSet: String = "UTF-8") = URLEncoder.encode(this, charSet)
 
-        val bold = matcher.group(1)
-        val color = matcher.group(2)
-        val colorName = matcher.group(3)
-        val colorText = matcher.group(4)
-
-        if(!bold.isNullOrEmpty()) {
-            spannableString.boldSpan(match)
-        }
-
-        if(!colorName.isNullOrEmpty()) {
-            val color: Int = colorMap[colorName] ?: throw Exception("entry corresponding to $colorName is missing in map")
-            spannableString.colorSpan(match, color)
-        }
-
-        val start = spannableString.indexOf(match)
-        val end = start + match.length
-
-        spannableString.replace(start, end, colorText)
-    }
-
-    return spannableString
-}
+inline fun String.decodeToUrl(charSet: String = "UTF-8") = URLDecoder.decode(this, charSet)
 
 inline fun String?.isValidEmail(): Boolean = this.isNullOrEmpty() || Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 inline fun join(vararg params: Any?) = params.joinToString(" ")
 
 inline fun joinWith(separator: String = " ", vararg params: Any?) = params.joinToString(separator = separator)
+
+inline val String.asColor: Int @ColorInt
+    get() = Color.parseColor(this)
+
+/**
+ * If the string is a HTTP URL (ie. Starts with http:// or https://)
+ */
+fun String.isHttp(): Boolean {
+    return this.matches(Regex("(http|https)://[^\\s]*"))
+}

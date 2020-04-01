@@ -1,11 +1,13 @@
 package com.halfplatepoha.extensions
 
-import android.os.Build
+import java.lang.Exception
 
-fun Int.toBoolean() = this > 0
+inline fun Int.toBoolean() = this > 0
 
-fun Boolean.toInt() = if(this) 1 else 0
+inline fun Boolean.toInt() = if(this) 1 else 0
 
-fun MatchGroup?.isNotNull() = this != null
-
-var IS_OREO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+inline fun tryOrIgnore(block: () -> Unit) {
+    try {
+        block()
+    } catch (e: Exception) {}
+}
