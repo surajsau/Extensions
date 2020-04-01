@@ -1,7 +1,9 @@
-package com.halfplatepoha.extensions
+package com.halfplatepoha.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.halfplatepoha.extensions.color
+import com.halfplatepoha.extensions.textView
 
 class MainActivity : AppCompatActivity() {
 

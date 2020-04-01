@@ -1,5 +1,6 @@
-package com.halfplatepoha.extensions
+package com.halfplatepoha.sample
 
+import com.halfplatepoha.extensions.REGEX_TEXT_FORMATTING
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -30,7 +31,7 @@ class ExampleUnitTest {
          */
         val string = "Sample text <*>to test</> wh <color sample-color>detection works</> or not in <*color sample-color>this</> case. Let <*color sample-2>us have</> another test."
 //        val pattern = Pattern.compile("(?<bc><\\*color (?<bcn>.*?)>(?<bct>.*?)<\\/>)|(?<c><color (?<cn>.*?)>(?<ct>.*?)<\\/>)|(?<b><\\*>(?<bt>.*?)<\\/>)")
-        val pattern = Pattern.compile(com.halfplatepoha.extensions.REGEX_TEXT_FORMATTING)
+        val pattern = Pattern.compile(REGEX_TEXT_FORMATTING)
 
         val matches = pattern.matcher(string)
 

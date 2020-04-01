@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 /github.properties
+/.idea/
+/.idea/codeStyles/

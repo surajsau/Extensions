@@ -1,8 +1,10 @@
 apply plugin: 'maven-publish' // Apply this plugin at the top of your library build.gradle
-
+apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
+group='com.github.surajsau'
 
 def githubProperties = new Properties()
 githubProperties.load(new FileInputStream(rootProject.file("github.properties"))) //Set env variable GPR_USER & GPR_API_KEY if not adding a properties file
@@ -17,7 +19,7 @@ def getArtificatId = { ->
 
 publishing {
     publications {
-        bar(MavenPublication) {
+        release(MavenPublication) {
             groupId 'com.halfplatepoha' // Replace with group ID
             artifactId getArtificatId()
             version getVersionName()
@@ -32,7 +34,7 @@ publishing {
              ** Replace GITHUB_USERID with your/organisation Github userID
              ** and REPOSITORY with the repository name on GitHub
              */
-            url = uri("https://maven.pkg.github.com/surajsau/REPOSITORY")
+            url = uri("https://maven.pkg.github.com/surajsau/Extensions")
             credentials {
                 /** Create github.properties in root project folder file with
                  ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
